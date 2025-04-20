@@ -1,3 +1,5 @@
+//BGR: MiddleButton, LeftButton, RightButton, MiddleLeft, MiddleRight, BottomLeft, BottomRight, BottomCenter, NONE, NONE, NONE, NONE, NONE, NONE, NONE, NONE, NONE
+
 import { shiftColorBy } from './colorUtils';
 
 const DISPLAY_TIME = '0.100';
@@ -16,24 +18,29 @@ export const generateColors = () => {
   for (let i = 0; i < MAX_STEPS; i++) {
     const colorZones = [];
 
-    for (let j = 0; j < 7; j++) {
+    for (let j = 0; j < 8; j++) {
       colorZones[j] = shiftColorBy(lastColor, Math.floor(STEP_SIZE) + 32 * j);
     }
 
     const mButtonColorColorShift =
       Math.floor(i / 0.3) >= MAX_STEPS / 0.3 / 2 ? MAX_STEPS / 0.3 - Math.floor(i / 0.3) : Math.floor(i / 0.3);
 
+    colorZones[0] = shiftColorBy(mButtonColor, mButtonColorColorShift);
+
     outputArray.push({
-      colorZones,
-      mButton: shiftColorBy(mButtonColor, mButtonColorColorShift),
+      LeftButton: colorZones[7],
+      MiddleButton: colorZones[0],
+      RightButton: colorZones[1],
+      MiddleLeft: colorZones[6],
+      MiddleRight: colorZones[2],
+      BottomLeft: colorZones[5],
+      BottomRight: colorZones[3],
+      BottomCenter: colorZones[4],
     });
 
     lastColor = shiftColorBy(lastColor, Math.floor(STEP_SIZE));
 
-    outputString += `\t<Frame${(i + 1).toString()}>\n\t\t<ColorPicture>${shiftColorBy(
-      mButtonColor,
-      mButtonColorColorShift
-    )},${colorZones[1]},${colorZones[6]},${colorZones[2]},${colorZones[5]},${colorZones[3]},${colorZones[4]},${
+    outputString += `\t<Frame${(i + 1).toString()}>\n\t\t<ColorPicture>${colorZones[0]},${colorZones[1]},${colorZones[6]},${colorZones[2]},${colorZones[5]},${colorZones[3]},${colorZones[4]},${
       colorZones[3]
     },ff0000,ff0000,ff0000,ff0000,ff0000,ff0000,ff0000,000000,000000,000000</ColorPicture>\n\t\t<DisplayTime>${DISPLAY_TIME}</DisplayTime>\n\t</Frame${(
       i + 1
@@ -45,7 +52,7 @@ export const generateColors = () => {
 
 const prefix = `<?xml version="1.0" encoding="UTF-16"?>
   <SledAnimation>
-      <Name>Mamba602!!</Name>
+      <Name>Your Custom Animation</Name>
       <Guid>File_0CE176E1-790A-40D9-8BEF-787DFC8AF2D1</Guid>
       <IsFolder>false</IsFolder>
       <FolderGuid>Folder_00000000-0000-0000-0000-000000000000</FolderGuid>
@@ -53,7 +60,7 @@ const prefix = `<?xml version="1.0" encoding="UTF-16"?>
   </Description>
       <Time>0</Time>
       <BackgroundColor>000000</BackgroundColor>
-      <FrameCount>96</FrameCount>`;
+      <FrameCount>96</FrameCount>\n`;
 const suffix = `</SledAnimation>`;
 
 export const generateConfig = () => {
