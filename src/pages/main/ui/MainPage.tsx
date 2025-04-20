@@ -63,56 +63,69 @@ export function MainPage() {
           {timer ? 'Stop' : 'Start'} animation
         </button>
       </div>
-      <div className="flex p-4 w-80 h-80 bg-black relative">
-        <div
-          className="w-10 h-10 absolute top-[10%] left-[20%]"
-          style={{
-            backgroundColor: colorShown('LeftButton'),
-          }}
-        ></div>
-        <div
-          className="w-10 h-10 absolute top-[20%] left-[50%]"
-          style={{
-            backgroundColor: colorShown('MiddleButton'),
-          }}
-        ></div>
-        <div
-          className="w-10 h-10 absolute top-[10%] left-[80%]"
-          style={{
-            backgroundColor: colorShown('RightButton'),
-          }}
-        ></div>
-        <div
-          className="w-10 h-10 absolute top-[40%] left-[20%]"
-          style={{
-            backgroundColor: colorShown('MiddleLeft'),
-          }}
-        ></div>
-        <div
-          className="w-10 h-10 absolute top-[40%] left-[80%]"
-          style={{
-            backgroundColor: colorShown('MiddleRight'),
-          }}
-        ></div>
-        <div
-          className="w-10 h-10 absolute top-[80%] left-[20%]"
-          style={{
-            backgroundColor: colorShown('BottomLeft'),
-          }}
-        ></div>
-        <div
-          className="w-10 h-10 absolute top-[80%] left-[50%]"
-          style={{
-            backgroundColor: colorShown('BottomCenter'),
-          }}
-        ></div>
-        <div
-          className="w-10 h-10 absolute top-[80%] left-[80%]"
-          style={{
-            backgroundColor: colorShown('BottomRight'),
-          }}
-        ></div>
+      <div className="flex w-160 h-160 bg-black items-center justify-center relative">
+        <div className="flex p-4 w-80 h-110 bg-black relative">
+          <div
+            className="w-10 h-10 absolute top-[15%] left-[20%] -translate-x-1/2 -translate-y-1/2 rounded-full"
+            style={{
+              backgroundColor: colorShown('LeftButton'),
+              boxShadow: `0px 0px 128px 48px ${colorShown('LeftButton')}`,
+            }}
+          ></div>
+          <div
+            className="w-5 h-25 absolute top-[18%] left-[50%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 "
+            style={{
+              backgroundColor: colorShown('MiddleButton'),
+              boxShadow: `0px 0px 64px 20px ${colorShown('MiddleButton')}`,
+            }}
+          ></div>
+          <div
+            className="w-10 h-10 absolute top-[15%] left-[80%] -translate-x-1/2 -translate-y-1/2 rounded-full"
+            style={{
+              backgroundColor: colorShown('RightButton'),
+              boxShadow: `0px 0px 128px 48px ${colorShown('RightButton')}`,
+            }}
+          ></div>
+          <div
+            className="w-10 h-10 absolute top-[50%] left-[20%] -translate-x-1/2 -translate-y-1/2 rounded-full"
+            style={{
+              backgroundColor: colorShown('MiddleLeft'),
+              boxShadow: `0px 0px 128px 48px ${colorShown('MiddleLeft')}`,
+            }}
+          ></div>
+          <div
+            className="w-10 h-10 absolute top-[50%] left-[80%] -translate-x-1/2 -translate-y-1/2 rounded-full"
+            style={{
+              backgroundColor: colorShown('MiddleRight'),
+              boxShadow: `0px 0px 128px 48px ${colorShown('MiddleRight')}`,
+            }}
+          ></div>
+          <div
+            className="w-10 h-10 absolute top-[80%] left-[20%] -translate-x-1/2 -translate-y-1/2 rounded-full"
+            style={{
+              backgroundColor: colorShown('BottomLeft'),
+              boxShadow: `0px 0px 128px 48px ${colorShown('BottomLeft')}`,
+            }}
+          ></div>
+          <div
+            className="w-10 h-10 absolute top-[93%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-full"
+            style={{
+              backgroundColor: colorShown('BottomCenter'),
+              boxShadow: `0px 0px 128px 48px ${colorShown('BottomCenter')}`,
+            }}
+          ></div>
+          <div
+            className="w-10 h-10 absolute top-[80%] left-[80%] -translate-x-1/2 -translate-y-1/2 rounded-full"
+            style={{
+              backgroundColor: colorShown('BottomRight'),
+              boxShadow: `0px 0px 128px 48px ${colorShown('BottomRight')}`,
+            }}
+          ></div>
+        </div>
+        <div className="w-full h-full backdrop-blur-sm absolute" />
+        <img src="/p91.png" alt="p91" className="absolute w-70 -translate-x-0.5" />
       </div>
+
       <textarea className="w-full" rows={20} defaultValue={generateConfig()} />
     </div>
   );
