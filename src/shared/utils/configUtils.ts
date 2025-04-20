@@ -4,14 +4,17 @@ import { shiftColorBy } from './colorUtils';
 
 const DISPLAY_TIME = '0.100';
 
+const flipColorString = (color: string) => {
+  return `${color[4]}${color[5]}${color[2]}${color[3]}${color[0]}${color[1]}`;
+};
+
 export const generateColors = () => {
-  let outputString = '';
   const MAX_STEPS = 96;
   const STEP_SIZE = (256 * 6) / MAX_STEPS;
-  const statColor = 'ff0000';
+  const statColor = '0000ff';
   let lastColor = statColor;
 
-  const mButtonColor = 'ff00a8';
+  const mButtonColor = 'a800ff';
 
   const outputArray = [];
 
@@ -39,15 +42,9 @@ export const generateColors = () => {
     });
 
     lastColor = shiftColorBy(lastColor, Math.floor(STEP_SIZE));
-
-    outputString += `\t<Frame${(i + 1).toString()}>\n\t\t<ColorPicture>${colorZones[0]},${colorZones[1]},${colorZones[6]},${colorZones[2]},${colorZones[5]},${colorZones[3]},${colorZones[4]},${
-      colorZones[3]
-    },ff0000,ff0000,ff0000,ff0000,ff0000,ff0000,ff0000,000000,000000,000000</ColorPicture>\n\t\t<DisplayTime>${DISPLAY_TIME}</DisplayTime>\n\t</Frame${(
-      i + 1
-    ).toString()}>\n`;
   }
 
-  return { outputString, outputArray };
+  return outputArray;
 };
 
 const prefix = `<?xml version="1.0" encoding="UTF-16"?>
@@ -56,13 +53,21 @@ const prefix = `<?xml version="1.0" encoding="UTF-16"?>
       <Guid>File_0CE176E1-790A-40D9-8BEF-787DFC8AF2D1</Guid>
       <IsFolder>false</IsFolder>
       <FolderGuid>Folder_00000000-0000-0000-0000-000000000000</FolderGuid>
-      <Description>ckAnimation:For custom-made each frame。
-  </Description>
+      <Description>ckAnimation:For custom-made each frame.</Description>
       <Time>0</Time>
       <BackgroundColor>000000</BackgroundColor>
       <FrameCount>96</FrameCount>\n`;
 const suffix = `</SledAnimation>`;
 
 export const generateConfig = () => {
-  return prefix + generateColors().outputString + suffix;
+  const colorsGenerated = generateColors();
+
+  const outputString = colorsGenerated.map((el, i) => {
+    const { MiddleButton, LeftButton, RightButton, MiddleLeft, MiddleRight, BottomLeft, BottomRight, BottomCenter } =
+      el;
+
+    return `\t<Frame${(i + 1).toString()}>\n\t\t<ColorPicture>${flipColorString(MiddleButton)},${flipColorString(LeftButton)},${flipColorString(RightButton)},${flipColorString(MiddleLeft)},${flipColorString(MiddleRight)},${flipColorString(BottomLeft)},${flipColorString(BottomRight)},${flipColorString(BottomCenter)},ff0000,ff0000,ff0000,ff0000,ff0000,ff0000,ff0000,000000,000000,000000</ColorPicture>\n\t\t<DisplayTime>${DISPLAY_TIME}</DisplayTime>\n\t</Frame${(i + 1).toString()}>`;
+  });
+
+  return prefix + outputString.join('\n') + suffix;
 };

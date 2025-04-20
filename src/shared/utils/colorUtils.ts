@@ -14,13 +14,12 @@ export const shiftColorBy = (color: string, shift: number) => {
 
   colorShiftNumber = Math.max(-(256 * 6), Math.min(256 * 6, colorShiftNumber));
 
-  let colorB = parseInt(`${color[0]}${color[1]}`, 16);
+  let colorR = parseInt(`${color[0]}${color[1]}`, 16);
   let colorG = parseInt(`${color[2]}${color[3]}`, 16);
-  let colorR = parseInt(`${color[4]}${color[5]}`, 16);
+  let colorB = parseInt(`${color[4]}${color[5]}`, 16);
 
   let reminder = 0;
 
-  // shift the color literally by the given amount, just changing the Hue value
   if (colorR === 255 && colorG === 0 && colorB < 255) {
     const shiftObject = clampColor(colorB, +colorShiftNumber);
     colorB = shiftObject.result;
@@ -47,9 +46,7 @@ export const shiftColorBy = (color: string, shift: number) => {
     reminder = shiftObject.reminder;
   }
 
-  const resultString = `${colorB.toString(16).padStart(2, '0')}${colorG
-    .toString(16)
-    .padStart(2, '0')}${colorR.toString(16).padStart(2, '0')}`;
+  const resultString = `${colorR.toString(16).padStart(2, '0')}${colorG.toString(16).padStart(2, '0')}${colorB.toString(16).padStart(2, '0')}`;
 
   let result = resultString;
 
